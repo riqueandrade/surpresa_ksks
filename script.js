@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const showMessageBtn = document.getElementById('showMessage');
     const messageDiv = document.getElementById('message');
     const countdownTimer = document.getElementById('countdown-timer');
@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const now = new Date();
         const currentYear = now.getFullYear();
         const birthdayThisYear = new Date(currentYear, 9, 18); // Mês é baseado em zero, então 9 é outubro
-        
+
         if (now > birthdayThisYear) {
             birthdayThisYear.setFullYear(currentYear + 1);
         }
-        
+
         const timeLeft = birthdayThisYear - now;
-        
+
         const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        
+
         countdownTimer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
@@ -29,9 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const messages = [
         "Você é o amor da minha vida!",
+        "Seu sorriso ilumina meu mundo",
+        "Você me faz querer ser uma pessoa melhor",
+        "Cada dia ao seu lado é uma bênção",
+        "Nosso amor é eterno e verdadeiro"
     ];
 
-    showMessageBtn.addEventListener('click', function() {
+    showMessageBtn.addEventListener('click', function () {
         createHeartExplosion();
     });
 
@@ -45,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 heart.classList.add('heart');
                 heart.style.left = Math.random() * window.innerWidth + 'px';
                 heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.transform = `scale(${Math.random() * 0.5 + 0.5}) rotate(${Math.random() * 360}deg)`;
                 fireworksContainer.appendChild(heart);
 
                 setTimeout(() => {
@@ -79,13 +84,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar Typed.js
     var typed = new Typed('#typed', {
-        stringsElement: '#typed-strings',
+        strings: messages,
         typeSpeed: 50,
         backSpeed: 30,
-        backDelay: 1000,
+        backDelay: 2000,
         startDelay: 1000,
-        loop: true
+        loop: true,
+        shuffle: true,
+        cursorChar: '❤️',
+        autoInsertCss: true,
+        onStringTyped: function(arrayPos, self) {
+            const typedElement = document.getElementById('typed');
+            typedElement.style.color = getRandomColor();
+        }
     });
+
+    function getRandomColor() {
+        const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
 
     // Adicione isso ao final do arquivo script.js
     function handleIntersection(entries, observer) {
@@ -97,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const observer = new IntersectionObserver(handleIntersection, { 
+    const observer = new IntersectionObserver(handleIntersection, {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
     });
@@ -105,4 +122,46 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.fade-in').forEach(el => {
         observer.observe(el);
     });
+
+    // Adicione esta função no final do arquivo script.js
+    function handleParallax() {
+        const petals = document.querySelectorAll('.petal');
+        window.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            petals.forEach(petal => {
+                const speed = parseFloat(petal.getAttribute('data-speed') || 1);
+                const x = (window.innerWidth - mouseX * 10) * speed;
+                const y = (window.innerHeight - mouseY * 10) * speed;
+                petal.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 360}deg)`;
+            });
+        });
+    }
+
+    // Chame a função handleParallax() após criar as pétalas
+    handleParallax();
+
+    // Adicione este código no final do arquivo script.js
+    const playMusicBtn = document.getElementById('playMusic');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    playMusicBtn.addEventListener('click', function() {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            playMusicBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar Música';
+        } else {
+            backgroundMusic.pause();
+            playMusicBtn.innerHTML = '<i class="fas fa-music"></i> Tocar Música';
+        }
+    });
+
+    const volumeControl = document.getElementById('volumeControl');
+
+    volumeControl.addEventListener('input', function() {
+        backgroundMusic.volume = this.value;
+    });
+
+    // Definir o volume inicial
+    backgroundMusic.volume = 0.5;
 });
