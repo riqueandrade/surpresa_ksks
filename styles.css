@@ -1,0 +1,244 @@
+body {
+    background: linear-gradient(135deg, #f8e5e5 0%, #f0d0d0 100%);
+    background-attachment: fixed;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+h1, h2 {
+    color: #e74c3c;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#message {
+    background-color: #f8d7da;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+    transition: transform 0.3s ease;
+}
+
+#message:hover {
+    transform: translateY(-5px);
+}
+
+.btn-primary {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+#countdown {
+    background-color: #f8d7da;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+    margin-bottom: 30px;
+}
+
+#countdown-timer {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#showMessage {
+    animation: heartBeat 1.5s ease-in-out infinite;
+    color: #e74c3c;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    font-size: 3.5rem;
+}
+
+#showMessage:hover {
+    color: #c0392b;
+    transform: scale(1.1);
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-in, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.carousel-item img {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 10%;
+    opacity: 0.8;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(231, 76, 60, 0.9);
+    border-radius: 50%;
+    padding: 20px;
+}
+
+/* Remover todo o código relacionado à timeline */
+.timeline,
+.timeline::before,
+.timeline-item,
+.timeline-content,
+.timeline-content::after {
+    /* Remover estas regras */
+}
+
+@media (max-width: 768px) {
+    /* Remover as regras relacionadas à timeline dentro da media query */
+}
+
+.profile-image-container {
+    max-width: 350px;
+    margin: 0 auto 30px;
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 8px solid #fff;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .profile-image-container {
+        max-width: 250px;
+    }
+}
+
+.petal {
+    position: absolute;
+    background-color: #ffb3ba; /* Cor rosa claro */
+    border-radius: 50% 0 50% 50%;
+    pointer-events: none;
+    z-index: 1000;
+    animation: falling linear infinite;
+}
+
+@keyframes falling {
+    0% {
+        top: -10%;
+        transform: translateX(0) rotateZ(0deg);
+    }
+    100% {
+        top: 110%;
+        transform: translateX(100px) rotateZ(360deg);
+    }
+}
+
+#typed {
+    font-size: 1.5rem;
+    color: #e74c3c;
+}
+
+#fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(30);
+        opacity: 0;
+    }
+}
+
+/* Substitua a animação de fogos de artifício por esta */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #e74c3c;
+    transform: rotate(45deg);
+    animation: explode 1.5s ease-out forwards;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: -10px;
+}
+
+@keyframes explode {
+    0% {
+        transform: rotate(45deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(45deg) scale(20);
+        opacity: 0;
+    }
+}
