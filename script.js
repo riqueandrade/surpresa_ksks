@@ -164,4 +164,92 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Definir o volume inicial
     backgroundMusic.volume = 0.5;
+
+    // Criar estrelas
+    function createStars() {
+        const starsContainer = document.createElement('div');
+        starsContainer.classList.add('stars');
+        document.body.appendChild(starsContainer);
+
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+    }
+
+    // Playlist de músicas
+    const playlist = [
+        {
+            title: "Eu Sei Que Vou Te Amar - Tom Jobim",
+            src: "music/Tom Jobim   Eu Sei Que Vou Te Amar.mp3"
+        },
+        // Adicione mais músicas aqui
+    ];
+
+    let currentSongIndex = 0;
+
+    function updateMusicControls() {
+        const playMusicBtn = document.getElementById('playMusic');
+        const songTitle = document.createElement('div');
+        songTitle.id = 'songTitle';
+        songTitle.style.fontSize = '0.8rem';
+        songTitle.style.marginTop = '5px';
+        songTitle.textContent = playlist[currentSongIndex].title;
+        
+        if (!document.getElementById('songTitle')) {
+            playMusicBtn.parentNode.appendChild(songTitle);
+        } else {
+            document.getElementById('songTitle').textContent = playlist[currentSongIndex].title;
+        }
+    }
+
+    function playNextSong() {
+        currentSongIndex = (currentSongIndex + 1) % playlist.length;
+        backgroundMusic.src = playlist[currentSongIndex].src;
+        if (!backgroundMusic.paused) {
+            backgroundMusic.play();
+        }
+        updateMusicControls();
+    }
+
+    function playPreviousSong() {
+        currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+        backgroundMusic.src = playlist[currentSongIndex].src;
+        if (!backgroundMusic.paused) {
+            backgroundMusic.play();
+        }
+        updateMusicControls();
+    }
+
+    // Adicionar botões de controle de playlist
+    const musicControls = document.getElementById('music-controls');
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add('music-buttons');
+
+    const prevButton = document.createElement('button');
+    prevButton.innerHTML = '<i class="fas fa-step-backward"></i>';
+    prevButton.addEventListener('click', playPreviousSong);
+
+    const nextButton = document.createElement('button');
+    nextButton.innerHTML = '<i class="fas fa-step-forward"></i>';
+    nextButton.addEventListener('click', playNextSong);
+
+    buttonsContainer.appendChild(prevButton);
+    buttonsContainer.appendChild(playMusicBtn);
+    buttonsContainer.appendChild(nextButton);
+
+    musicControls.appendChild(buttonsContainer);
+
+    // Inicializar novas funcionalidades
+    document.addEventListener('DOMContentLoaded', function() {
+        createStars();
+        updateMusicControls();
+        
+        // Atualizar música quando terminar
+        backgroundMusic.addEventListener('ended', playNextSong);
+    });
 });

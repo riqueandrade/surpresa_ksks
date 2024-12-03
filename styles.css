@@ -1,10 +1,18 @@
+:root {
+    --primary-color: #e74c3c;
+    --secondary-color: #f8d7da;
+    --text-color: #333;
+    --transition-default: all 0.3s ease-in-out;
+}
+
 body {
     background: linear-gradient(135deg, #f8e5e5 0%, #f0d0d0 100%);
     background-attachment: fixed;
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     font-family: 'Roboto', sans-serif;
-    color: #333;
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
 h1, h2 {
@@ -31,9 +39,6 @@ h2 {
     transition: transform 0.3s ease;
 }
 
-#message:hover {
-    transform: translateY(-5px);
-}
 
 .btn-primary {
     background-color: #e74c3c;
@@ -91,6 +96,7 @@ h2 {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s ease-in, transform 0.5s ease-out;
+    will-change: opacity, transform;
 }
 
 .fade-in.visible {
@@ -118,15 +124,6 @@ h2 {
     background-color: rgba(231, 76, 60, 0.9);
     border-radius: 50%;
     padding: 20px;
-}
-
-/* Remover todo o código relacionado à timeline */
-.timeline,
-.timeline::before,
-.timeline-item,
-.timeline-content,
-.timeline-content::after {
-    /* Remover estas regras */
 }
 
 @media (max-width: 768px) {
@@ -296,79 +293,295 @@ h2 {
 
 #music-controls {
     position: relative;
-    margin-top: 20px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+                -5px -5px 15px rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    gap: 15px;
+    max-width: 300px;
+}
+
+.music-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.music-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.music-buttons button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #c0392b, #e74c3c);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
 }
 
 #playMusic {
-    background-color: rgba(231, 76, 60, 0.8);
-    color: white;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 24px;
     border: none;
-    padding: 10px 15px;
-    border-radius: 30px;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+    color: white;
+    font-weight: 600;
     transition: all 0.3s ease;
-    margin-bottom: 10px;
 }
 
 #playMusic:hover {
-    background-color: rgba(231, 76, 60, 1);
     transform: scale(1.05);
+    background: linear-gradient(145deg, #c0392b, #e74c3c);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
 }
 
 .volume-control {
     display: flex;
     align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
 }
 
 .volume-control i {
     color: #e74c3c;
-    margin-right: 5px;
+    font-size: 1.2rem;
 }
 
 #volumeControl {
+    appearance: none;
     -webkit-appearance: none;
-    width: 80px;
-    height: 5px;
-    background: #e74c3c;
+    width: 120px;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
     outline: none;
-    border-radius: 5px;
 }
 
 #volumeControl::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     background: #e74c3c;
-    cursor: pointer;
     border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#volumeControl::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #c0392b;
 }
 
 #volumeControl::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     background: #e74c3c;
-    cursor: pointer;
     border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+#volumeControl::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: #c0392b;
+}
+
+#songTitle {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Efeito de Estrelas */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    background-color: #fff;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    animation: twinkle 1.5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Melhorias nas animações existentes */
+.container {
+    transition: all 0.5s ease-in-out;
+}
+
+#message {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#message:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+}
+
+/* Efeito de Scroll Suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Melhorias no carrossel */
+.carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item img {
+    filter: brightness(0.9);
+    transition: all 0.5s ease;
+}
+
+.carousel-item.active img {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+}
+
+/* Estilos para as cartas virtuais */
+.memory-card {
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #e74c3c;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+    background: linear-gradient(145deg, #ffecec, #ffe0e0);
+}
+
+.card-back {
+    background: linear-gradient(145deg, #ffe0e0, #ffcece);
+    transform: rotateY(180deg);
+}
+
+.card-front i {
+    font-size: 3rem;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.card-back h3 {
+    color: #e74c3c;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.card-back p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.memory-card:hover .card-inner {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+}
+
+:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 @media (max-width: 768px) {
-    #music-controls {
-        margin-top: 10px;
+    h1 {
+        font-size: 2.5rem;
     }
-
-    #playMusic {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+    
+    h2 {
+        font-size: 2rem;
     }
+    
+    .container {
+        padding: 15px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .memory-card {
+        width: 160px;
+        height: 240px;
+    }
+}
 
-    #volumeControl {
-        width: 60px;
+.carousel {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 400px;
+}
+
+@media (max-width: 576px) {
+    .carousel-item img {
+        height: 300px;
     }
 }
